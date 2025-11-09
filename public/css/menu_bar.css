@@ -1,0 +1,156 @@
+.menu-lateral{
+    height: 100%;
+    width: 6%;
+    min-height: 100vh;
+    background-color: #860B19;
+    position: fixed;
+    transition: 0.3s ease;
+    z-index: 999;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.menu-lateral:hover{
+    width: 20%;
+    transition: 0.5s;
+}
+.tela{
+    height: auto;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F8F8F8;
+}
+.pai-icones-superiores{
+    height: 70%;
+    width: 100%;
+    background-color: #860B19;
+    padding-top: 2.5vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.pai-icones-inferiores{
+    height: 35%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+#logo {
+    margin-top: 1vh;
+    margin-bottom: 7vh;
+}
+.icone-logo-pequena{
+    height: 6vh;
+}
+.icone-logomarca{
+    width: 15vw;
+}
+.icone-box{
+    height: 15%;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icone-box:hover{
+    background-color: #9a1522;
+    cursor: pointer;
+}
+.icone-box-inferior{
+    height: 25%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icone-box-inferior:hover{
+    background-color: #9a1522;
+    cursor: pointer;
+}
+.separador{
+    width: 100%;
+    height: 0.0vh;
+    border: none;
+    background-color: #6f0606;
+
+}
+.separador-forte{
+    width: 100%;
+    height: 0.5vh;
+    border: none;
+    background-color: #6f0606;
+}
+.icone-menu-1{
+    height: 3.5vh;
+    width: 3.5vh;
+}
+.icone-menu-2{
+    height: 3.5vh;
+    width: 3.5vh;
+}
+.icone-menu-3{
+   height: 3.5vh;
+    width: 3.5vh;
+}
+.icone-menu-4{
+    height: 3.5vh;
+    width: 3.5vh;
+}
+.icone-menu-5{
+    height: 3.5vh;
+    width: 3.5vh;
+}
+.icone-menu-6{
+    height: 3.5vh;
+    width: 3.5vh;
+}
+.texto-icone{
+    color: #fff;
+    font-size: 1vw;
+    font-weight: bold;
+    padding-left: 1vw;
+    padding-bottom: 5px;
+    position: relative;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+.texto-icone::after {
+    margin-left: 1vw;
+    content: '';
+    position: absolute;
+    height: 2px;
+    background-color: #fff; 
+    bottom: 0;
+    left: 0;
+    right: 0; 
+    transform: scaleX(0); 
+    transform-origin: bottom left; 
+    transition: transform 0.3s ease-out; 
+}
+.texto-icone:hover{
+    color: #fff;
+}
+.texto-icone:hover::after {
+    transform: scaleX(1); 
+}
+.extendido{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding-left: 2.3vw;
+}
+/* Deixar por último */
+.oculto{
+    transition: 1s;
+    display: none;
+}

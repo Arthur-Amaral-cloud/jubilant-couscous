@@ -1,0 +1,1115 @@
+section {
+    width: 100%;
+    height: 100vh;
+    scroll-margin-top: 70px;
+}
+
+/* SECTION - INÍCIO --------------------------------------------- */
+.camada-escura {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    opacity: 50%;
+    z-index: -1;
+}
+
+header {
+    width: 100%;
+    height: 100vh;
+    scroll-margin-top: 70px;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 10vh;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 8px -2px;
+    z-index: 3;
+}
+
+#nav-logomarca {
+    width: 200px;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+#logomarca-healthguard {
+    width: 100%;
+}
+
+.menu-mobile {
+    display: none;
+    cursor: pointer;
+}
+
+.menu-mobile div {
+    width: 32px;
+    height: 4px;
+    background-color: rgb(0, 0, 0);
+    margin: 6px;
+    border-radius: 15px;
+    transition: 0.25s;
+}
+
+#nav-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 65%;
+}
+
+#nav-list ul {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+    padding: 0;
+    margin: 0;
+}
+
+#nav-list li a {
+    position: relative;
+    text-decoration: none;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    color: #000;
+}
+
+#nav-list li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0%;
+    height: 3px;
+    background-color: #860b19;
+    transition: width 0.3s;
+}
+
+#nav-list li a:hover::after,
+#nav-list li a:focus::after {
+    width: 100%;
+    border-radius: 50px;
+}
+
+#nav-list li a:focus {
+    color: rgb(0, 0, 0);
+}
+
+.button-contorno {
+    font-size: 1rem;
+    padding: 8px;
+    border-radius: 8px;
+    border-width: 2px;
+    border-style: solid;
+    background-color: transparent;
+    font-weight: 600;
+    text-decoration: none;
+    border-color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.button-contorno:hover {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    transition: 0.2s;
+}
+
+.button-preenchido {
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.button-preenchido:hover {
+    background-color: transparent;
+    border-width: 2px;
+    border-style: solid;
+    padding: 8px;
+    border-color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
+@media (max-width: 910px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .camada-escura {
+        display: block;
+        opacity: 0;
+        z-index: 2;
+    }
+
+    .camada-escura.active {
+        opacity: 0.5;
+        transition: 0.3s ease;
+        pointer-events: all;
+    }
+
+    nav {
+        z-index: 4;
+    }
+
+    #nav-logomarca {
+        width: 170px;
+    }
+
+    #nav-list {
+        position: absolute;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        top: 10vh;
+        right: 0;
+        height: 92vh;
+        width: 55vw;
+        background-color: rgb(255, 255, 255);
+        transform: translateX(100%);
+        transition: transform 0.45s ease, opacity 0.1s ease;
+        opacity: 0;
+        pointer-events: none;
+        /* não interpreta cliques */
+    }
+
+    #nav-list.active {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateX(0);
+    }
+
+    #nav-list ul {
+        flex-direction: column;
+        padding-top: 7%;
+        padding-bottom: 10%;
+        text-align: center;
+    }
+
+    #div-buttons {
+        width: 100%;
+        padding: 5%;
+        height: 20%;
+    }
+
+    #button-login {
+        margin-bottom: 5%;
+        width: 100%;
+    }
+
+    #button-cadastro {
+        width: 100%;
+    }
+
+    .menu-mobile {
+        display: block;
+    }
+
+    .menu-mobile.active .linha1 {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-mobile.active .linha2 {
+        opacity: 0;
+    }
+
+    .menu-mobile.active .linha3 {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+}
+
+#container-inicio {
+    display: grid;
+    grid-template-columns: 50% 55%;
+    grid-template-rows: 90vh 90vh;
+    margin-top: 10vh;
+}
+
+#esquerda-inicio {
+    display: flex;
+    flex-direction: column;
+    /* font-size: 5rem; */
+    font-weight: 700;
+}
+
+#esquerda-inicio img {
+    display: flex;
+    flex-direction: column;
+    line-height: -20px;
+    width: 160px;
+    gap: 50px;
+}
+
+#div-slogan {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 7vh;
+    margin-left: 20%;
+    width: 85%;
+    font-size: 2.5rem;
+}
+
+.slogan-txt {
+    display: flex;
+}
+
+.slogan-txt span {
+    color: #860b19;
+}
+
+#div-descricao-inicio {
+    display: flex;
+    align-items: center;
+    height: 15vh;
+    width: 85%;
+}
+
+#div-descricao-inicio p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 24%;
+}
+
+#div-button-saiba-mais {
+    display: flex;
+    align-items: end;
+    justify-content: start;
+    margin-left: 21%;
+    height: 10vh;
+    width: 80%;
+}
+
+.falso-button-padrao {
+    width: 50%;
+    padding: 12px;
+    background: #1E2A38;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 400;
+}
+
+.falso-button-padrao:hover {
+    background: #1d2f3f;
+    cursor: pointer;
+}
+
+#direita-inicio {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: -1;
+}
+
+#direita-inicio img {
+    width: 400px;
+    height: 475px;
+    margin-top: 6vh;
+    margin-right: 5%;
+}
+
+@media (max-width: 910px) {
+    #inicio {
+        height: 110vh;
+    }
+
+    #container-inicio {
+        grid-template-columns: 100%;
+        grid-template-rows: 55vh 55vh;
+    }
+
+    #div-slogan {
+        margin-top: 3vh;
+        margin-left: 12%;
+        font-size: 1.4rem;
+    }
+
+    #div-descricao-inicio {
+        height: 18vh;
+    }
+
+    #div-descricao-inicio p {
+        margin-left: 15%;
+    }
+
+    #div-button-saiba-mais {
+        height: 7vh;
+        width: 80%;
+        margin-left: 13%;
+    }
+
+    #direita-inicio img {
+        width: 300px;
+        height: 365px;
+        margin-top: 1%;
+        margin-right: 0;
+    }
+}
+
+/* SECTION - HEALTHGUARD --------------------------------------------- */
+section {
+    scroll-margin-top: 50px;
+}
+
+#section-healthguard {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 75vh 75vh;
+    height: 90vh;
+    width: 100%;
+}
+
+#div-conteudo-healthguard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6%;
+    line-height: 1.5;
+    width: 77%;
+    height: 85%;
+    margin-left: 19%;
+}
+
+.titulo-padrao {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #860b19;
+}
+
+#texto-healthguard {
+    text-align: justify;
+}
+
+#direita-healthguard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#direita-healthguard img {
+    width: 500px;
+    margin-right: 5%;
+}
+
+@media (max-width: 910px) {
+    #section-healthguard {
+        grid-template-columns: 100%;
+        grid-template-rows: 45vh 30vh;
+        height: 75vh;
+        width: 100%;
+    }
+
+    #div-conteudo-healthguard {
+        display: flex;
+        flex-direction: column;
+        gap: 6%;
+        width: 80%;
+        height: 100%;
+        margin-left: 10%;
+    }
+
+    .titulo-padrao {
+        font-size: 1.5rem;
+        font-weight: 750;
+        color: #860b19;
+    }
+
+    #texto-healthguard {
+        text-align: justify;
+    }
+
+    #direita-healthguard {
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
+
+    #direita-healthguard img {
+        width: 300px;
+        margin-right: 0;
+    }
+}
+
+/* SECTION - SOBRE NÓS --------------------------------------------- */
+#section-sobre-nos {
+    /* background-color: rgb(232, 232, 232); */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 170vh;
+}
+
+#container-texto-sobre-nos {
+    /* background-color: #111c28; */
+    display: grid;
+    grid-template-columns: 35% 25% 22%;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 25%;
+    gap: 3%;
+}
+
+#frase-sobre-nos {
+    /* background-color: rgb(172, 172, 172); */
+    width: 80%;
+    margin-left: 5%;
+    font-size: 1.2rem;
+}
+
+#frase-sobre-nos h1 span{
+    color: #860b19;
+}
+
+.div-missao-visao-sobre-nos {
+    /* background-color: beige; */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
+    width: 92%;
+}
+
+#container-cards-sobre-nos {
+    /* background-color: #111c28; */
+    display: grid;
+    grid-template-columns: 20% 20% 21% 21%;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    justify-items: center;
+    align-items: start;
+    margin-top: 2%;
+    height: 20%;
+    gap: 2%;
+}
+
+.card-sobre-nos {
+    background-color: white;
+    display: flex;
+    border-radius: 20px;
+    width: 100%;
+    height: 45%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+}
+
+.esquerda-card-sobre-nos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+    height: 100%;
+}
+
+.fundo-icone-card-sobre-nos {
+    background-color: #5B5B5B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    width: 70px;
+    height: 70px;
+}
+
+.fundo-icone-card-sobre-nos img {
+    width: 60%;
+}
+
+.direita-card-sobre-nos {
+    /* background-color: #860b198c; */
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.7vh;
+}
+
+.direita-card-sobre-nos p {
+    font-size: 0.8rem;
+}
+
+#container-imagem-sobre-nos {
+    /* background-color: #1d2f3f; */
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    height: 40%;
+}
+
+#container-imagem-sobre-nos img {
+    width: 70%;
+    height: 80%;
+}
+
+/* SECTION - MEMBROS --------------------------------------------- */
+#section-membros {
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+#section-membros p {
+    width: 50%;
+    text-align: center;
+    margin-top: 2%;
+    color: #4d4d4d;
+}
+
+.swiper {
+    /* background-color: #0f0f0fa2; */
+    width: 70%;
+    height: 390px;
+    margin-top: 2.5%;
+    padding: 0.5% 1% 0% 1%;
+} 
+
+.swiper-wrapper {
+    /* background-color: #1d2f3f; */
+    height: 87%;
+}
+
+.swiper-slide {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 30px;
+    position: relative;
+}
+
+.foto-membro {
+    background-color: #777777;
+    width: 100%;
+    height: 70%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    overflow: hidden;
+}
+
+.foto-membro img {
+    width: 90%;
+    height: 100%;
+    transform: scale(1.2);
+    object-fit: cover;
+    margin-left: 5%;
+    margin-top: 10%;
+}
+
+.contato-membro {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 30%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.icone-contato-membro {
+    background-color: #E7E7E7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    margin-top: 27px;
+    border-radius: 100%;
+    border: solid 2px #D1D1D1;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.icone-contato-membro:hover {
+    transform: scale(1.05);
+}
+
+.icone-contato-membro img {
+    width: 60%;
+}
+
+.icone-github {
+    width: 65% !important;
+}
+
+.div-informacoes-membro {
+    background-color: #000;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+    width: 90%;
+    height: 20%;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    position: fixed;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+}
+
+.div-informacoes-membro h5 {
+    font-size: 0.9rem;
+}
+
+.div-informacoes-membro p {
+    width: 90% !important;
+    font-size: 0.7rem;
+    color: white !important;
+}
+
+.custom-prev-btn,
+.custom-next-btn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 425vh;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: #ffffff00 !important;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.custom-prev-btn img {
+    width: 30px; 
+    height: 30px; 
+    transform: rotateY(180deg);
+}
+
+.custom-next-btn img {
+    width: 30px; 
+    height: 30px; 
+}
+
+.custom-prev-btn:hover,
+.custom-next-btn:hover {
+    transform: translateY(-50%) scale(1.15);
+}
+
+.custom-prev-btn {
+    left: 10%; 
+}
+
+.custom-next-btn {
+    right: 10%; 
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    display: none !important;
+}
+
+/* SECTION - NOSSOS SERVIÇOS --------------------------------------------- */
+#section-nossos-servicos {
+    scroll-margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 6%;
+    /* background-color: whitesmoke; */
+    width: 100%;
+}
+
+.div-titulo {
+    width: 100%;
+    text-align: center;
+    padding-top: 3%;
+}
+
+#container-cards-servicos {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+    grid-template-rows: 70% 70% 70% 70%;
+    justify-content: center;
+    gap: 2%;
+    width: 100%;
+    height: 85%;
+}
+
+.card-servico {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: 0.3s ease-in-out;
+
+}
+
+.card-servico:hover {
+    transform: scale(1.020);
+
+}
+
+.top-card {
+    width: 100%;
+    height: 50%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.top-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.bottom-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    width: 100%;
+    height: 50%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.bottom-card h3 {
+    text-align: center;
+}
+
+.bottom-card p {
+    font-size: 0.8rem;
+    text-align: center;
+    width: 80%;
+}
+
+@media (max-width: 910px) {
+    #section-nossos-servicos {
+        height: 225vh;
+        gap: 3%;
+    }
+
+    .div-titulo {
+        padding-top: 0%;
+    }
+
+    #container-cards-servicos {
+        grid-template-columns: 100%;
+        grid-template-rows: 50vh 50vh 50vh 50vh;
+        justify-items: center;
+        height: 205vh;
+        gap: 1%;
+        width: 100%;
+    }
+
+    .card-servico {
+        width: 80%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+}
+
+/* SECTION - BENEFÍCIOS --------------------------------------------- */
+#section-beneficios {
+    display: flex;
+    flex-direction: column;
+    gap: 6%;
+    width: 100%;
+}
+
+.div-titulo {
+    width: 100%;
+    text-align: center;
+    padding-top: 3%;
+}
+
+.color-black {
+    color: rgb(7, 7, 7);
+}
+
+#container-cards-beneficios {
+    display: grid;
+    grid-template-columns: 25% 25% 25%;
+    grid-template-rows: 40% 40% 40%;
+    justify-content: center;
+    gap: 3%;
+    row-gap: 7%;
+    width: 100%;
+    height: 85%;
+}
+
+.card-beneficio {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+    transition: 0.3s ease-in-out;
+
+}
+
+.card-red {
+    background-color: #860b19;
+    color: white;
+}
+
+.card-beneficio:hover {
+    transform: scale(1.020);
+
+}
+
+.top-card-beneficio {
+    /* background-color: #0000000d; */
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 100%;
+    height: 45%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.top-card-beneficio img {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.icone-grande {
+    width: 65% !important;
+    height: 65% !important;
+}
+
+.bottom-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    width: 100%;
+    height: 55%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.bottom-card p {
+    font-size: 0.8rem;
+    text-align: center;
+    width: 80%;
+}
+
+@media (max-width: 910px) {
+    #section-beneficios {
+        height: 340vh;
+        gap: 3%;
+    }
+
+    .div-titulo {
+        padding-top: 0%;
+    }
+
+    #container-cards-beneficios {
+        grid-template-columns: 100%;
+        grid-template-rows: 50vh 50vh 50vh 50vh 50vh 50vh;
+        justify-items: center;
+        height: 205vh;
+        gap: 1%;
+        width: 100%;
+    }
+
+    .card-beneficio {
+        width: 80%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+}
+
+/* SECTION - CONTATO --------------------------------------------- */
+#rodape-contato {
+    background-color: rgb(237, 237, 237);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 50vh;
+}
+
+#container-rodape {
+    height: 95%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100% 100%;
+}
+
+#esquerda-rodape {
+    /* background-color: #424649; */
+    display: flex;
+    flex-direction: column;
+    gap: 5%
+}
+
+#logo-rodape {
+    /* background-color: #1d2f3f; */
+    width: 45%;
+    margin-left: 40%;
+    margin-top: 5%;
+}
+
+#logo-rodape img {
+    width: 100%;
+}
+
+#rodape-links {
+    margin-left: 40%;
+}
+
+#rodape-links ul {
+    list-style: none;
+    line-height: 2;
+}
+
+#rodape-links a {
+    text-decoration: none;
+    color: black;
+}
+
+#rodape-links a:hover {
+    text-decoration: underline;
+}
+
+#direita-rodape {
+    /* background-color: #3d3d3d; */
+    display: flex;
+    flex-direction: column;
+    gap: 5%
+}
+
+#div-contato {
+    margin-top: 7%;
+    margin-bottom: 2%;
+    margin-left: 20%;
+}
+
+#div-email-rodape {
+    /* background-color: #00000072; */
+    display: flex;
+    align-items: center;
+    gap: 1.5%;
+    width: 80%;
+    height: 15%;
+    margin-left: 20%;
+}
+
+#div-email-rodape img {
+    width: 32px;
+}
+
+
+#div-telefone-rodape {
+    /* background-color: #00000072; */
+    display: flex;
+    align-items: center;
+    gap: 1.5%;
+    width: 80%;
+    height: 15%;
+    margin-left: 20%;
+}
+
+
+#div-email-rodape img {
+    width: 32px;
+}
+
+#direitos-rodape {
+    background-color: rgb(237, 237, 237);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+}
+
+@media (max-width: 910px) {
+    #rodape-contato {
+        height: 100vh;
+    }
+
+    #container-rodape {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 40% 50% 100%;
+    }
+
+    #logo-rodape {
+        width: 70%;
+        margin-left: 10%;
+        margin-top: 5%;
+    }
+
+    #logo-rodape img {
+        width: 100%;
+    }
+
+    #rodape-links {
+        margin-left: 10%;
+    }
+
+    #direita-rodape {
+        gap: 0%
+    }
+
+    #div-contato {
+        margin-left: 10%;
+        margin-bottom: 5%;
+    }
+
+    #div-email-rodape {
+        gap: 1.5%;
+        height: 10%;
+        margin-left: 10%;
+    }
+
+    #div-telefone-rodape {
+        gap: 1.5%;
+        height: 15%;
+        margin-left: 10%;
+    }
+
+}

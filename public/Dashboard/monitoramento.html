@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en" id="html_fonte">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthGuard - Monitoramento</title>
+    <link rel="shortcut icon" type="imagex/png" href="../assets/icon/healthguard_icone.png">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/menu_bar.css">
+    <link rel="stylesheet" href="../css/monitoramento.css">
+    <!-- Link JavaScript -->
+</head>
+
+<body onload="validarSessao()">
+    <section class="tela">
+        <!-- Começo modais -->
+        <div class="tela-escurecida oculto">
+            <div id="popupFundo" class="popup-fundo oculto">
+                <div class="popup">
+                    <div class="popup-header">
+                        <div class="titulo_modal">Códigos de configuração gerados</div>
+                        <button class="fechar" onclick="fecharPop()"><img class="fechar"
+                                src="../assets/imgs/iconeFechar.png"></button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="area-filtros">
+                        <!-- ÁREA DESTINADA AOS FILTROS -->
+                        <div class="texto-funcionalidade alinhamento-centralizar-vertical">
+                            Filtros:
+                        </div>
+
+                        <div class="box-filtros">
+
+                            <div class="componente-filtro" id="campo-status-codigo">
+                                Status do código:
+                                <select name="status-codigo">
+                                    <option value="todos">Todos</option>
+                                    <option value="aceito">Ativo</option>
+                                    <option value="pendente">Inativo</option>
+                                </select>
+                            </div>
+
+                            <div class="componente-filtro" id="campo-data-codigo-gerado">
+                                Gerado entre: <input type="date"> e: <input type="date">
+                            </div>
+                        </div>
+
+                        <div class="box-filtros">
+                            <div class="componente-filtro" id="campo-data-codigo-gerado">
+                                Expirado entre: <input type="date"> e: <input type="date">
+                            </div>
+                            <button class="botao-aplicar-filtros">
+                                Aplicar filtros
+                            </button>
+                        </div>
+
+                        <div class="box-filtros-aplicados">
+                            <!-- <div class="filtro-aplicado">
+                                Status: Aceito &nbsp <img src="../assets/imgs/iconeFecharFiltro.png">
+                            </div>
+                            <div class="filtro-aplicado">
+                                Gerado entre: 10/10/1025 - 15/10/2025 &nbsp <img
+                                    src="../assets/imgs/iconeFecharFiltro.png">
+                            </div>
+                            <div class="filtro-aplicado">
+                                Expirado entre: 25/10/1025 - 27/10/2025 &nbsp <img
+                                    src="../assets/imgs/iconeFecharFiltro.png">
+                            </div> -->
+                        </div>
+
+                    </div>
+
+                    <!-- TABELA DE CÓDIGOS GERADOS -->
+                    <div id="container-tabela">
+                        <table id="tabela-codigos">
+                            <tr id="titulo-tabela">
+                                <td id="tr-cod-codigo">Código de Configuração</td>
+                                <td id="tr-data-criacao-codigo">Data de criação</td>
+                                <td id="tr-data-expiracao-codigo">Data de expiração</td>
+                                <td id="tr-status-codigo">Status</td>
+                            </tr>
+                            <tr class="dados-tabela">
+                                <td class="td-cod-codigo">ABC123DEF456GHI78901</td>
+                                <td class="td-data-criacao-codigo">24/10/2025 20:59</td>
+                                <td class="td-data-expiracao-codigo">30/10/2025 20:59</td>
+                                <td class="td-status-codigo"><span style="color: rgb(233, 136, 0);">Pendente</span></td>
+                            </tr>
+                            <tr class="dados-tabela">
+                                <td class="td-cod-codigo">AYGDSIASKDPNKODASJ28</td>
+                                <td class="td-data-criacao-codigo">01/10/2025 17:55</td>
+                                <td class="td-data-expiracao-codigo">07/10/2025 17:55</td>
+                                <td class="td-status-codigo"><span style="color: rgb(233, 136, 0);">Pendente</span></td>
+                            </tr>
+                            <tr class="dados-tabela">
+                                <td class="td-cod-codigo">ifiosijoASDUasjd1828</td>
+                                <td class="td-data-criacao-codigo">01/10/2025 15:34</td>
+                                <td class="td-data-expiracao-codigo">07/10/2025 15:34</td>
+                                <td class="td-status-codigo"><span style="color: rgb(214, 36, 36);">Expirado</span></td>
+                            </tr>
+                            <tr class="dados-tabela">
+                                <td class="td-cod-codigo">idasisgias9238919287</td>
+                                <td class="td-data-criacao-codigo">01/10/2025 12:05</td>
+                                <td class="td-data-expiracao-codigo">07/10/2025 12:05</td>
+                                <td class="td-status-codigo"><span style="color:rgb(214, 36, 36);">Expirado</span></td>
+                            </tr>
+                            <tr class="dados-tabela">
+                                <td class="td-cod-codigo">hsjboaisofiiasoidasi</td>
+                                <td class="td-data-criacao-codigo">01/10/2025 08:40</td>
+                                <td class="td-data-expiracao-codigo">07/10/2025 08:40</td>
+                                <td class="td-status-codigo"><span style="color: rgb(0, 170, 40);">Aceito</span></td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-fundo oculto" id="modal_adicionarmaquina">
+                <div class="popup reduzido">
+                    <div class="popup-header">
+                        <div class="titulo_modal">Adicionar nova máquina</div>
+                        <button class="fechar" onclick="fecharPop()"><img class="fechar"
+                                src="../assets/imgs/iconeFechar.png"></button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="texto-marcacao-modal">Indentificação da máquina:</div>
+                    <div class="box-input-modal">
+                        <div class="texto-modal">Apelido da máquina<span class="texto-modal"
+                                style="color: red;">*</span>:</div>
+                        <div class="coluna-erro-modal">
+                            <input type="text" class="input-modal" id="nome_indetificao_maquina" maxlength="45"
+                                oninput="validacaoNomeIndetificao()" placeholder="Ex: Máquina 01">
+                            <div class="texto-erro oculto" id="texto_erro_nome_indentificao">Preencha o campo</div>
+                        </div>
+                    </div>
+                    <div class="texto-marcacao-modal">Seleção dos serviços de monitoramento:</div>
+                    <div class="box-selecao-servicos">
+                        <div class="box-colunas-selecao">
+                            <div class="box-selecao-modal">
+                                <div class="texto-modal">Uso de CPU(%)</div>
+                                <label for="uso_cpu_porcentagem" class="switch">
+                                    <input type="checkbox" id="uso_cpu_porcentagem" class="input-checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="box-selecao-modal">
+                                <div class="texto-modal">Uso de RAM(%)</div>
+                                <label for="uso_ram_porcentagem" class="switch">
+                                    <input type="checkbox" id="uso_ram_porcentagem" class="input-checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="barra-vertical-modal"></div>
+                        <div class="box-colunas-selecao">
+                            <div class="box-selecao-modal">
+                                <div class="texto-modal">Uso de Disco(%)</div>
+                                <label for="uso_disco_porcentagem" class="switch">
+                                    <input type="checkbox" id="uso_disco_porcentagem" class="input-checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="box-selecao-modal">
+                                <div class="texto-modal">Uso de Rede</div>
+                                <label for="uso_rede" class="switch">
+                                    <input type="checkbox" id="uso_rede" class="input-checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-botao-modal">
+                        <div class="texto-erro oculto" id="texto_erro_selecao_servicos">Selecione ao menos um serviço
+                        </div>
+                        <button class="botao-modal" onclick="adicionandoServicos()">Próximo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-fundo oculto" id="modal_codigofinal">
+                <div class="popup modal-reduzido">
+                    <div class="popup-header">
+                        <div class="titulo_modal">Adicionar nova máquina</div>
+                        <button class="fechar" onclick="fecharPop()"><img class="fechar"
+                                src="../assets/imgs/iconeFechar.png"></button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="texto-marcacao-modal">Sua máquina foi configurada com sucesso!</div>
+                    <div class="texto-modal">Para começar a realizar os monitoramento dos componentes, inserir o código
+                        abaixo no aplicativo de captura:</div>
+                    <div class="caixa-cinza">
+                        <div class="caixa-codigo">
+                            <div class="texto-codigo" id="div_codigo_gerado">A1B2C3D4E5F6G7H</div>
+                            <div class="box-imagem-copy">
+                                <img src="../assets/imgs/Icone Copiar.png" alt="" class="icon-copiar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal métricas alertas -->
+            <div class="popup-fundo oculto" id="modal_adicionarmaquina_config">
+                <div class="popup-header">
+                    <div class="popup">
+                        <div class="popup-header">
+                            <div class="titulo_modal">Adicionar nova máquina</div>
+                            <button class="fechar" onclick="fecharPop()"><img class="fechar"
+                                    src="../assets/imgs/iconeFechar.png"></button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="texto-marcacao-modal" id="parametro_a_configurar">Definição das métricas de CPU(%):
+                        </div>
+                        <div class="texto-marcacao-modal">Intervalo de operação ideal:</div>
+                        <div class="box-input-modal">
+                            <div class="texto-modal">Valor mínimo(%)<span class="texto-modal"
+                                    style="color: red;">*</span>:</div>
+                            <div class="coluna-erro-modal-reduzido">
+                                <input type="number" class="input-modal" id="valor_minimo_ideal"
+                                    oninput="validarnumero(this)" placeholder="Ex: 30%" min="0" max="100">
+                                <div class="texto-erro oculto" id="texto_erro_valor_minimo">Preencha o campo</div>
+                            </div>
+                            <div class="texto-modal">Valor máximo(%)<span class="texto-modal"
+                                    style="color: red;">*</span>:</div>
+                            <div class="coluna-erro-modal-reduzido">
+                                <input type="number" class="input-modal" id="valor_maximo_ideal"
+                                    oninput="validarnumero(this)" placeholder="Ex: 90%" min="0" max="100">
+                                <div class="texto-erro oculto" id="texto_erro_valor_maximo">Preencha o campo</div>
+                            </div>
+                        </div>
+                        <div class="texto-marcacao-modal">Definições dos alertas:</div>
+                        <div class="box-input-modal">
+                            <div class="texto-modal">Nome do Alerta:</div>
+                            <div class="coluna-erro-modal-input">
+                                <input type="text" class="input-modal" id="valor_nome_alerta"
+                                    oninput="validarnumero(this)" placeholder="Ex: Severo,Alerta" maxlength="45">
+                                <div class="texto-erro oculto" id="texto_erro_nome_alerta">Preencha o campo </div>
+                            </div>
+                            <div class="texto-modal">Cor do alerta:</div>
+                            <div class="coluna-erro-modal-reduzido">
+                                <input type="color" class="input-modal-number" id="valor_cor_alerta"
+                                    placeholder="Ex: 90%" min="0" max="100">
+                                <div class="texto-erro oculto" id="texto_erro_cor_alerta">Preencha o campo </div>
+                            </div>
+                        </div>
+                        <div class="box-input-modal">
+                            <div class="texto-modal">Valor mínimo(%):</div>
+                            <div class="coluna-erro-modal-reduzido">
+                                <input type="number" class="input-modal" id="valor_minimo_alerta"
+                                    oninput="validarnumero(this)" placeholder="Ex: 30%" min="0" max="100">
+                                <div class="texto-erro oculto" id="texto_erro_valor_minimo_alerta">Preencha o campo
+                                </div>
+                            </div>
+                            <div class="texto-modal">Valor máximo(%):</div>
+                            <div class="coluna-erro-modal-reduzido">
+                                <input type="number" class="input-modal" id="valor_maximo_alerta"
+                                    oninput="validarnumero(this)" placeholder="Ex: 90%" min="0" max="100">
+                                <div class="texto-erro oculto" id="texto_erro_valor_maximo_alerta">Preencha o campo
+                                </div>
+                            </div>
+                            <button class="botao-modal-reduzido" onclick="adicionandoAlerta()">Adicionar
+                                alerta</button>
+                        </div>
+                        <div class="barra-grafico-modal-pai">
+                            <div class="div-grafico-modal" style="width: 74%;">
+                                <div class="texto-grafico-modal">0% - 74%</div>
+                                <div class="preencher" style="background-color: lawngreen;"></div>
+                            </div>
+                            <div class="div-grafico-modal" style="width: 12%;">
+                                <div class="texto-grafico-modal">75% - 86%</div>
+                                <div class="preencher" style="background-color: yellow;"></div>
+                            </div>
+                            <div class="div-grafico-modal" style="width: 14%;">
+                                <div class="texto-grafico-modal">87% - 100%</div>
+                                <div class="preencher" style="background-color: red;"></div>
+                            </div>
+                        </div>
+                        <div class="box-botao-modal">
+                            <div class="texto-erro oculto" id="texto_erro_selecao_servicos">Selecione ao menos um
+                                serviço
+                            </div>
+                            <div class="box-botao-modal">
+                                <div class="texto-erro oculto" id="texto_erro_configuracao_alerta">Configure a operação
+                                    ideal</div>
+                                <button class="botao-modal" onclick="salvandoAlerta()">Próximo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!--Fim modais -->
+        <!-- Começo do Menu -->
+        <div class="menu-lateral">
+            <div class="pai-icones-superiores">
+                <div id="logo">
+                    <img src="../assets/imgs/HealthGuard_icone_BRANCO_fundo_transparente.png" alt="HealthGuard"
+                        class="icone-logo-pequena">
+                </div>
+                <br>
+                <div class="icone-box" id="monitoramento_redirecionamento">
+                    <img src="../assets/imgs/icone_monitoramento.png" alt="Foto" class="icone-menu-1">
+                    <div class="texto-icone oculto">Monitoramento</div>
+                </div>
+                <hr class="separador">
+                <div class="icone-box" id="gestao_redirecionamento">
+                    <img src="../assets/imgs/icone_gestao_usuarios.png" alt="Foto" class="icone-menu-2">
+                    <div class="texto-icone oculto">Gestão de usuários</div>
+                </div>
+                <hr class="separador">
+                <div class="icone-box" id="alertas_redirecionamento">
+                    <img src="../assets/imgs/icone_alerta.png" alt="Foto" class="icone-menu-3">
+                    <div class="texto-icone oculto">Histórico de Alertas</div>
+                </div>
+                <hr class="separador">
+                <div class="icone-box" id="suporte_redirecionamento">
+                    <img src="../assets/imgs/icone_suporte.png" alt="Foto" class="icone-menu-4">
+                    <div class="texto-icone oculto">Suporte</div>
+                </div>
+            </div>
+            <div class="pai-icones-inferiores">
+                <hr class="separador-forte">
+                <div class="icone-box-inferior">
+                    <img src="../assets/imgs/icone_perfil.png" alt="Foto" class="icone-menu-5">
+                    <div class="texto-icone oculto" id="nome_usuario">Perfil</div>
+                </div>
+                <hr class="separador">
+                <div class="icone-box-inferior" id="sair_conta_redirecionamento">
+                    <img src="../assets/imgs/icone_log-out.png" alt="Foto" class="icone-menu-6">
+                    <div class="texto-icone oculto">Sair da conta</div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim do Menu -->
+        <div class="kpis-box">
+            <div class="texto-organizacao" id="div_nome_empresa">
+                Nome da Unidade de Atendimento
+            </div>
+            <div class="texto-topico">
+                Resumo das Máquinas:
+            </div>
+            <div class="kpis-flexbox">
+                <div class="kpi-box">
+                    <div class="barra-vertical"></div>
+                    <div class="kpi-flexbox">
+                        <div class="texto-kpi">Máquinas em configuração</div>
+                        <div class="numero-kpi-vermelho" id="kpi_configuracao">1</div>
+                    </div>
+                </div>
+                <div class="kpi-box">
+                    <div class="barra-vertical"></div>
+                    <div class="kpi-flexbox">
+                        <div class="texto-kpi">Máquinas cadastradas</div>
+                        <div class="numero-kpi-preta" id="kpi_cadastradas">3</div>
+                    </div>
+                </div>
+                <div class="kpi-box">
+                    <div class="barra-vertical"></div>
+                    <div class="kpi-flexbox">
+                        <div class="texto-kpi">Máquinas inativas</div>
+                        <div class="numero-kpi-vermelho" id="kpi_inativas">1</div>
+                    </div>
+                </div>
+                <div class="kpi-box">
+                    <div class="barra-vertical"></div>
+                    <div class="kpi-flexbox">
+                        <div class="texto-kpi">Máquinas em alerta / Máquinas ativas</div>
+                        <div class=""><span class="numero-kpi-vermelho" id="kpi_alerta">1</span>
+                            <span class="numero-kpi-preta">/</span>
+                            <span class="numero-kpi-preta" id="kpi_ativas">2</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="kpi-box">
+                    <div class="barra-vertical"></div>
+                    <div class="kpi-flexbox">
+                        <div class="texto-kpi">Máquinas em alerta</div>
+                        <div class="numero-kpi-vermelho">1</div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="texto-topico alinhamento-centralizar-vertical">
+                Situação das máquinas:
+            </div>
+            <div class="box-filtro">
+                <div class="filtro-esquerda">
+                    <div class="texto-funcionalidade">
+                        Filtro:
+                    </div>
+                    <select name="" id="filtro_maquinas" class="select-filtro">
+                        <option value="todas">Todas as máquinas</option>
+                        <option value="alerta">Apenas máquinas em alerta</option>
+                        <option value="inativas">Apenas máquinas Inativas</option>
+                        <option value="ativas">Apenas máquinas Ativas(Sem Alerta)</option>
+                        <option value="ativas_alerta">Apenas máquinas Ativas(Com Alerta)</option>
+                        <option value="configuração">Apenas máquinas em configuração</option>
+                    </select>
+                </div>
+                <div class="filtro-direita-acoes">
+                    <button class="botao-codigo-cinza" id="botao_codigos_gerados">
+                        Ver códigos de configuração gerados
+                    </button>
+                    <div class="div-botao-adicionar" id="botao_adicionar_maquina">
+                        <img src="../assets/imgs/Icone mais.png" alt="icone Mais" class="icone-mais">
+                        <div class="texto-botao-adicionar">
+                            Adicionar máquina
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pai-maquinas" id="div_maquinas">
+            <div class="maquina-box">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        Maquina 1
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina verde">
+                        Ok
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/Icone ok.png" alt="Status" class="imagem-status">
+                </div>
+            </div>
+            <div class="maquina-box">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        Maquina 2
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Inativo
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/iconeInativo.png" alt="Status" class="imagem-status">
+                </div>
+            </div>
+            <div class="maquina-box">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        Maquina 3
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Alerta CPU
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/iconeAlerta.png" alt="Status" class="imagem-status">
+                </div>
+            </div>
+            <div class="maquina-box">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        Maquina 4
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Em configuração
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/iconeConfiguracao.png" alt="Status" class="imagem-status">
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+<script src="../js/validarSessao.js"></script>
+<script src="../js/menu-lateral.js"></script>
+<script>
+    // Criação de váriaveis
+    var adicionando_nova_maquina = {
+        nome: "",
+        servicos: [],
+        alertas: [[], [], [], []]
+    }
+    // Redirecionador Dash
+    document.addEventListener('click', function (elemento) {
+        if (elemento.target.closest('.maquina-box')) {
+            var maquina = event.target.closest('.maquina-box');
+            sessionStorage.ID_DAC = maquina.id;
+            window.location.href = "grafico1.html"
+        }
+    });
+    // Buscar nome da central
+    function trocarNomeUnidade() {
+        fetch(`/dashboard/buscarNomeDaUnidade/${fkUnidade}`, {
+            method: "GET",
+        })
+            .then(resposta => {
+                return resposta.json();
+            })
+            .then(resposta => {
+                if (resposta[0].nomeFantasia == null) {
+                    div_nome_empresa.innerHTML = resposta[0].razaoSocial
+                } else {
+                    div_nome_empresa.innerHTML = resposta[0].nomeFantasia
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`Erro no catch: ${resposta}`);
+            });
+    }
+    function atualizarkpismonitoramento() {
+        fetch(`/dashboard/buscarKpisMonitoramento/${fkUnidade}`, {
+            method: "GET",
+        })
+            .then(resposta => {
+                return resposta.json();
+            })
+            .then(resposta => {
+                console.log(resposta)
+                kpi_configuracao.innerHTML = resposta[0].configuracao
+                kpi_cadastradas.innerHTML = resposta[0].cadastradas
+                kpi_inativas.innerHTML = resposta[0].inativo
+                kpi_ativas.innerHTML = resposta[0].ativo
+                kpi_alerta.innerHTML = resposta[0].alerta
+            })
+            .catch(function (resposta) {
+                console.log(`Erro no catch: ${resposta}`);
+            });
+    }
+    function atualizarMaquinas() {
+        fetch(`/dashboard/buscarMaquina/${fkUnidade}`, {
+            method: "GET",
+        })
+            .then(resposta => {
+                return resposta.json();
+            })
+            .then(resposta => {
+                vetor_maquinas = resposta
+                var filtro = filtro_maquinas.value
+                if (filtro == "todas") {
+                    div_maquinas.innerHTML = ``
+                    for (let i = 0; i < vetor_maquinas.length; i++) {
+                        if (vetor_maquinas[i].statusDac == "Ativo") {
+                            div_maquinas.innerHTML += `<div class="maquina-box" id="${vetor_maquinas[i].idDac}">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        ${vetor_maquinas[i].nomeIdentificacao}
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina verde">
+                        Ok
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/Icone ok.png" alt="Status" class="imagem-status">
+                </div>
+            </div>`
+                        }
+                        if (vetor_maquinas[i].statusDac == "Inativo") {
+                            div_maquinas.innerHTML += `<div class="maquina-box" id="${vetor_maquinas[i].idDac}">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        ${vetor_maquinas[i].nomeIdentificacao}
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Inativo
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/iconeInativo.png" alt="Status" class="imagem-status">
+                </div>
+            </div>`
+                        }
+                        if (vetor_maquinas[i].statusDac == "Alerta") {
+                            div_maquinas.innerHTML += `<div class="maquina-box" id="${vetor_maquinas[i].idDac}">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        ${vetor_maquinas[i].nomeIdentificacao}
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Alerta 
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/Icone Alerta.png" alt="Status" class="imagem-status">
+                </div>
+            </div>`
+                        }
+                        if (vetor_maquinas[i].statusDac == "Em configuração") {
+                            div_maquinas.innerHTML += `<div class="maquina-box" id="${vetor_maquinas[i].idDac}">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        ${vetor_maquinas[i].nomeIdentificacao}
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Em configuração
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/iconeConfiguracao.png" alt="Status" class="imagem-status">
+                </div>
+            </div>`
+                        }
+
+                    }
+                }
+                if (filtro == "alerta" || filtro == "ativas_alerta") {
+                    div_maquinas.innerHTML = ``
+                    for (let i = 0; i < vetor_maquinas.length; i++) {
+                        if (vetor_maquinas[i].statusDac == "Alerta") {
+                            div_maquinas.innerHTML += `<div class="maquina-box" id="${vetor_maquinas[i].idDac}">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        ${vetor_maquinas[i].nomeIdentificacao}
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Alerta 
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/iconeAlerta.png" alt="Status" class="imagem-status">
+                </div>
+            </div>`
+                        }
+                    }
+                }
+                if (filtro == "inativas") {
+                    div_maquinas.innerHTML = ``
+                    for (let i = 0; i < vetor_maquinas.length; i++) {
+                        if (vetor_maquinas[i].statusDac == "Inativo") {
+                            if (vetor_maquinas[i].statusDac == "Inativo") {
+                                div_maquinas.innerHTML += `<div class="maquina-box" id="${vetor_maquinas[i].idDac}">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        ${vetor_maquinas[i].nomeIdentificacao}
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Inativo
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/Icone inativo.png" alt="Status" class="imagem-status">
+                </div>
+            </div>`
+                            }
+                        }
+                    }
+                }
+                if (filtro == "ativas" || filtro == "ativas_alerta") {
+                    if (filtro == "ativas") {
+                        div_maquinas.innerHTML = ``
+                    }
+                    for (let i = 0; i < vetor_maquinas.length; i++) {
+                        if (vetor_maquinas[i].statusDac == "Ativo") {
+                            div_maquinas.innerHTML += `<div class="maquina-box" id="${vetor_maquinas[i].idDac}">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        ${vetor_maquinas[i].nomeIdentificacao}
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina verde">
+                        Ok
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/Icone ok.png" alt="Status" class="imagem-status">
+                </div>
+            </div>`
+                        }
+                    }
+
+                }
+                if (filtro == "configuração") {
+                    div_maquinas.innerHTML = ``
+                    for (let i = 0; i < vetor_maquinas.length; i++) {
+                        if (vetor_maquinas[i].statusDac == "Em configuração") {
+                            div_maquinas.innerHTML += `<div class="maquina-box" id="${vetor_maquinas[i].idDac}">
+                <div class="coluna-informacoes">
+                    <div class="nome-maquina">
+                        ${vetor_maquinas[i].nomeIdentificacao}
+                    </div>
+                    <div class="texto-marcacao-maquina">
+                        Status:
+                    </div>
+                    <div class="texto-status-maquina vermelho">
+                        Em configuração
+                    </div>
+                </div>
+                <div class="div-imagem-status">
+                    <img src="../assets/imgs/Icone configuracao.png" alt="Status" class="imagem-status">
+                </div>
+            </div>`
+                        }
+                    }
+                }
+
+            })
+            .catch(function (resposta) {
+                console.log(`Erro no catch: ${resposta}`);
+            });
+    }
+    // Modal Adicionar máquina
+    function validacaoNomeIndetificao() {
+        var nomeIndetificao = document.getElementById("nome_indetificao_maquina")
+        if (nome_indetificao_maquina.value.length > 0) {
+            nomeIndetificao.style.border = '0.2vh solid #0AA40A'
+            nomeIndetificao.style.boxShadow = '#0aa40a38 0px 2px 8px 0px'
+        } else {
+            nomeIndetificao.style.border = '0.2vh solid #D30808'
+            nomeIndetificao.style.boxShadow = '#d308082d 0px 2px 8px 0px'
+        }
+    }
+    function adicionandoServicos() {
+        adicionando_nova_maquina = {
+            nome: "",
+            servicos: [],
+            alertas: [[], [], [], []]
+        }
+        // Declarando variavéis
+        var input_nome_indentificao = nome_indetificao_maquina.value
+        var uso_cpu_porcentagem = document.getElementById('uso_cpu_porcentagem').checked
+        var uso_ram_porcentagem = document.getElementById('uso_ram_porcentagem').checked
+        var uso_disco_porcentagem = document.getElementById('uso_disco_porcentagem').checked
+        var uso_rede = document.getElementById('uso_rede').checked
+        if (input_nome_indentificao.length == 0) {
+            document.getElementById("texto_erro_nome_indentificao").classList.remove('oculto')
+        } else {
+            document.getElementById("texto_erro_nome_indentificao").classList.add('oculto')
+        }
+        if (uso_cpu_porcentagem == false && uso_ram_porcentagem == false && uso_disco_porcentagem == false && uso_rede == false) {
+            document.getElementById("texto_erro_selecao_servicos").classList.remove('oculto')
+        } else {
+            document.getElementById("texto_erro_selecao_servicos").classList.add('oculto')
+        }
+        if (input_nome_indentificao.length > 0 && (uso_cpu_porcentagem == true || uso_ram_porcentagem == true || uso_disco_porcentagem == true || uso_rede == true)) {
+            adicionando_nova_maquina.nome = input_nome_indentificao
+            adicionando_nova_maquina.servicos[0] = uso_cpu_porcentagem
+            adicionando_nova_maquina.servicos[1] = uso_ram_porcentagem
+            adicionando_nova_maquina.servicos[2] = uso_disco_porcentagem
+            adicionando_nova_maquina.servicos[3] = uso_rede
+            if (uso_cpu_porcentagem == true) {
+                parametro_a_configurar.innerHTML = `Definição das métricas de uso de CPU(%):`
+            } else if (uso_ram_porcentagem == true) {
+                parametro_a_configurar.innerHTML = `Definição das métricas de uso de RAM(%):`
+            } else if (uso_disco_porcentagem == true) {
+                parametro_a_configurar.innerHTML = `Definição das métricas de uso de disco(%):`
+            }
+
+            document.getElementById("modal_adicionarmaquina_config").classList.remove("oculto")
+            document.getElementById("modal_adicionarmaquina").classList.add('oculto')
+        }
+    }
+    function adicionandoAlerta() {
+        if (valor_nome_alerta.value == "") {
+            document.getElementById("texto_erro_nome_alerta").classList.remove("oculto")
+        } else {
+            document.getElementById("texto_erro_nome_alerta").classList.add("oculto")
+        } if (valor_minimo_alerta.value == '') {
+            texto_erro_valor_minimo_alerta.innerHTML = `Preencha o campo`
+            document.getElementById("texto_erro_valor_minimo_alerta").classList.remove("oculto")
+        } else {
+            document.getElementById("texto_erro_valor_minimo_alerta").classList.add("oculto")
+        } if (valor_maximo_alerta.value == '') {
+            texto_erro_valor_maximo_alerta.innerHTML = `Preencha o campo`
+            document.getElementById("texto_erro_valor_maximo_alerta").classList.remove("oculto")
+        } else {
+            document.getElementById("texto_erro_valor_maximo_alerta").classList.add("oculto")
+        } if (valor_minimo_alerta.value > valor_maximo_alerta.value) {
+            document.getElementById("texto_erro_valor_minimo_alerta").classList.remove("oculto")
+            document.getElementById("texto_erro_valor_maximo_alerta").classList.remove("oculto")
+            texto_erro_valor_minimo_alerta.innerHTML = `Valor invalído`
+            texto_erro_valor_maximo_alerta.innerHTML = `Valor invalído`
+        }
+        if (valor_minimo_alerta.value < valor_maximo_alerta.value && valor_nome_alerta.value != "" && valor_minimo_alerta.value != '' && valor_maximo_alerta.value != '') {
+            if (adicionando_nova_maquina.servicos[0] == true && adicionando_nova_maquina.alertas[1] == "") {
+                for (let i = 0; i < adicionando_nova_maquina.alertas[0].length; i++) {
+                    if (valor_minimo_alerta.value > adicionando_nova_maquina.alertas[0][i].valor_minimo && valor_minimo_alerta.value < adicionando_nova_maquina.alertas[0][i].valor_maximo) {
+                        document.getElementById("texto_erro_valor_minimo_alerta").classList.remove("oculto")
+                        document.getElementById("texto_erro_valor_maximo_alerta").classList.remove("oculto")
+                        texto_erro_valor_minimo_alerta.innerHTML = `Valor invalído`
+                        texto_erro_valor_maximo_alerta.innerHTML = `Valor invalído`
+                        return
+                    }
+                    if (valor_maximo_alerta.value > adicionando_nova_maquina.alertas[0][i].valor_minimo && valor_maximo_alerta.value < adicionando_nova_maquina.alertas[0][i].valor_maximo) {
+                        document.getElementById("texto_erro_valor_minimo_alerta").classList.remove("oculto")
+                        document.getElementById("texto_erro_valor_maximo_alerta").classList.remove("oculto")
+                        texto_erro_valor_minimo_alerta.innerHTML = `Valor invalído`
+                        texto_erro_valor_maximo_alerta.innerHTML = `Valor invalído`
+                        return
+                    }
+                }
+                adicionando_nova_maquina.alertas[0].push({
+                    nome_alerta: valor_nome_alerta.value,
+                    cor: valor_cor_alerta.value,
+                    valor_minimo: valor_minimo_alerta.value,
+                    valor_maximo: valor_maximo_alerta.value
+                })
+            } else if (adicionando_nova_maquina.servicos[1] == true && adicionando_nova_maquina.alertas[1] == "") {
+                for (let i = 0; i < adicionando_nova_maquina.alertas[1].length; i++) {
+                    if (valor_minimo_alerta.value > adicionando_nova_maquina.alertas[1][i].valor_minimo && valor_minimo_alerta.value < adicionando_nova_maquina.alertas[1][i].valor_maximo) {
+                        document.getElementById("texto_erro_valor_minimo_alerta").classList.remove("oculto")
+                        document.getElementById("texto_erro_valor_maximo_alerta").classList.remove("oculto")
+                        texto_erro_valor_minimo_alerta.innerHTML = `Valor invalído`
+                        texto_erro_valor_maximo_alerta.innerHTML = `Valor invalído`
+                        return
+                    }
+                    if (valor_maximo_alerta.value > adicionando_nova_maquina.alertas[1][i].valor_minimo && valor_maximo_alerta.value < adicionando_nova_maquina.alertas[1][i].valor_maximo) {
+                        document.getElementById("texto_erro_valor_minimo_alerta").classList.remove("oculto")
+                        document.getElementById("texto_erro_valor_maximo_alerta").classList.remove("oculto")
+                        texto_erro_valor_minimo_alerta.innerHTML = `Valor invalído`
+                        texto_erro_valor_maximo_alerta.innerHTML = `Valor invalído`
+                        return
+                    }
+                }
+                adicionando_nova_maquina.alertas[1].push({
+                    nome_alerta: valor_nome_alerta.value,
+                    cor: valor_cor_alerta.value,
+                    valor_minimo: valor_minimo_alerta.value,
+                    valor_maximo: valor_maximo_alerta.value
+                })
+            } else if (adicionando_nova_maquina.servicos[2] == true && adicionando_nova_maquina.alertas[2] == "") {
+                for (let i = 0; i < adicionando_nova_maquina.alertas[2].length; i++) {
+                    if (valor_minimo_alerta.value > adicionando_nova_maquina.alertas[2][i].valor_minimo && valor_minimo_alerta.value < adicionando_nova_maquina.alertas[2][i].valor_maximo) {
+                        document.getElementById("texto_erro_valor_minimo_alerta").classList.remove("oculto")
+                        document.getElementById("texto_erro_valor_maximo_alerta").classList.remove("oculto")
+                        texto_erro_valor_minimo_alerta.innerHTML = `Valor invalído`
+                        texto_erro_valor_maximo_alerta.innerHTML = `Valor invalído`
+                        return
+                    }
+                    if (valor_maximo_alerta.value > adicionando_nova_maquina.alertas[2][i].valor_minimo && valor_maximo_alerta.value < adicionando_nova_maquina.alertas[2][i].valor_maximo) {
+                        document.getElementById("texto_erro_valor_minimo_alerta").classList.remove("oculto")
+                        document.getElementById("texto_erro_valor_maximo_alerta").classList.remove("oculto")
+                        texto_erro_valor_minimo_alerta.innerHTML = `Valor invalído`
+                        texto_erro_valor_maximo_alerta.innerHTML = `Valor invalído`
+                        return
+                    }
+                }
+                adicionando_nova_maquina.alertas[2].push({
+                    nome_alerta: valor_nome_alerta.value,
+                    cor: valor_cor_alerta.value,
+                    valor_minimo: valor_minimo_alerta.value,
+                    valor_maximo: valor_maximo_alerta.value
+                })
+            }
+        }
+    }
+    function salvandoAlerta() {
+        if (valor_minimo_ideal.value == "" || valor_maximo_ideal.value == "") {
+            texto_erro_configuracao_alerta.classList.remove("oculto")
+            return
+        } else {
+            texto_erro_configuracao_alerta.classList.add("oculto")
+        }
+        if (adicionando_nova_maquina.servicos[1] == true && adicionando_nova_maquina.alertas[1] == "") {
+            parametro_a_configurar.innerHTML = `Definição das métricas de uso de RAM(%):`
+            adicionando_nova_maquina.alertas[1] = "Hello World"
+        } else if (adicionando_nova_maquina.servicos[2] == true && adicionando_nova_maquina.alertas[2] == "") {
+            parametro_a_configurar.innerHTML = `Definição das métricas de uso de disco(%):`
+            adicionando_nova_maquina.alertas[2] = "Hello World"
+        } else {
+            document.getElementById("modal_codigofinal").classList.remove("oculto")
+            document.getElementById("modal_adicionarmaquina_config").classList.add("oculto")
+        }
+    }
+    function validarnumero(input) {
+        if (input.value < 0) {
+            input.value = 0
+        } if (input.value > 100) {
+            input.value = 100
+        }
+    }
+    // POP-UP DE CÓDIGOS GERADOS
+    document.getElementById("botao_codigos_gerados").addEventListener('click', () => {
+        document.querySelector('.tela-escurecida').classList.remove('oculto')
+        document.getElementById("popupFundo").classList.remove('oculto')
+        document.getElementById('html_fonte').style.overflowY = "hidden"
+    })
+    function fecharPop() {
+        document.getElementById("modal_codigofinal").classList.add("oculto")
+        document.querySelector('.tela-escurecida').classList.add('oculto')
+        document.getElementById("popupFundo").classList.add('oculto')
+        document.getElementById("modal_adicionarmaquina").classList.add('oculto')
+        document.getElementById("modal_adicionarmaquina_config").classList.add("oculto")
+        document.getElementById('html_fonte').style.overflowY = "auto"
+        nome_indetificao_maquina.value = ""
+        validacaoNomeIndetificao()
+        document.getElementById('uso_cpu_porcentagem').checked = false
+        document.getElementById('uso_ram_porcentagem').checked = false
+        document.getElementById('uso_disco_porcentagem').checked = false
+        document.getElementById('uso_rede').checked = false
+    }
+    document.getElementById("botao_adicionar_maquina").addEventListener('click', () => {
+        document.querySelector('.tela-escurecida').classList.remove('oculto')
+        document.getElementById("modal_adicionarmaquina").classList.remove('oculto')
+        document.getElementById('html_fonte').style.overflowY = "hidden"
+    })
+</script>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard </title>
+  <link rel="shortcut icon" type="imagex/png" href="../assets/icon/healthguard_icone.png">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/menu_bar.css">
+  <link rel="stylesheet" href="../css/grafico1.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</head>
+
+<body>
+
+  <!-- Começo do Menu -->
+  <div class="menu-lateral">
+    <div class="pai-icones-superiores">
+      <div id="logo">
+        <img src="../assets/imgs/HealthGuard_icone_BRANCO_fundo_transparente.png" alt="HealthGuard"
+          class="icone-logo-pequena">
+      </div>
+      <br>
+      <div class="icone-box" id="monitoramento_redirecionamento">
+        <img src="../assets/imgs/icone_monitoramento.png" alt="Foto" class="icone-menu-1">
+        <div class="texto-icone oculto">Monitoramento</div>
+      </div>
+      <hr class="separador">
+      <div class="icone-box" id="gestao_redirecionamento">
+        <img src="../assets/imgs/icone_gestao_usuarios.png" alt="Foto" class="icone-menu-2">
+        <div class="texto-icone oculto">Gestão de usuários</div>
+      </div>
+      <hr class="separador">
+      <div class="icone-box" id="alertas_redirecionamento">
+        <img src="../assets/imgs/icone_alerta.png" alt="Foto" class="icone-menu-3">
+        <div class="texto-icone oculto">Histórico de Alertas</div>
+      </div>
+      <hr class="separador">
+      <div class="icone-box" id="suporte_redirecionamento">
+        <img src="../assets/imgs/icone_suporte.png" alt="Foto" class="icone-menu-4">
+        <div class="texto-icone oculto">Suporte</div>
+      </div>
+    </div>
+    <div class="pai-icones-inferiores">
+      <hr class="separador-forte">
+      <div class="icone-box-inferior">
+        <img src="../assets/imgs/icone_perfil.png" alt="Foto" class="icone-menu-5">
+        <div class="texto-icone oculto" id="nome_usuario">Perfil</div>
+      </div>
+      <hr class="separador">
+      <div class="icone-box-inferior" id="sair_conta_redirecionamento">
+        <img src="../assets/imgs/icone_log-out.png" alt="Foto" class="icone-menu-6">
+        <div class="texto-icone oculto">Sair da conta</div>
+      </div>
+    </div>
+  </div>
+  <!-- Fim do Menu -->
+  <div class="container">
+    <div class="conteudo-principal">
+      <div class="header">
+      <div class="header-esquerda">
+      <span>Máquina A-08</span>
+      <span class="status alerta">Status: Alerta grave (Memória RAM)</span>
+      </div>
+
+    <input type="checkbox" id="btn_descricao">
+    <label class="link-descricao" for="btn_descricao">Exibir descrição</label>
+    <div class="descricao">
+        <p>Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.</p>
+    </div>
+    </div>
+
+
+      <div class="dashboard-cards">
+        <div class="card-monitoramento">
+        
+          <div class="title"><p>Monitoramento em tempo real </p>
+              <span class="tooltip"> <i class='bxr  bx-info-circle'></i>
+            <span class="tooltip-text">Painel com a visão geral de todos os componentes sendo monitorados nessa
+              máquina e o seu
+              desempenho no momento atual</span>
+          </span>
+          </div>
+          
+          <div class="div_componentes">
+          <div> <span class="status-dot ok"> </span> Uso de CPU: <strong>70%</strong></div>
+          <div> <span class="status-dot alerta-grave"></span>Uso de Memória RAM: <strong>89%</strong></div>
+          <div> <span class="status-dot ok"></span>Status da Rede: <strong>CONECTADA</strong></div>
+          </div>
+          <button class="btn-editar">Editar</button>
+        </div>
+
+        <div class="kpi-topo">
+          <div class="card alerta-card">
+            <div class="title"><p>Componente com mais alertas</p>
+               <span class="tooltip"> <i class='bxr  bx-info-circle'></i>
+              <span class="tooltip-text">Componente monitorado que mais apresentou falhas nas útltimas 24h</span>
+            </span>
+             </div>
+            <div class="text" style="color:#b30000; font-weight: 700;">Mémoria RAM</div>
+          </div>
+
+
+          <div class="card alerta-card">
+            <div class="title"><p>Tempo de Atividade</p>
+                          <span class="tooltip"> <i class='bxr  bx-info-circle'></i>
+              <span class="tooltip-text">Tempo ativo total do componente desde o momento que começou o
+                monitoramento </span>
+            </span>
+            </div>
+            <div class="tempo-atividade">15h30min</div>
+          </div>
+
+
+          <div class="card alerta-card">
+            <div class="title"><p>Quantidade de alertas</p>
+                          <span class="tooltip"> <i class='bxr  bx-info-circle'></i>
+              <span class="tooltip-text">Quantidade de alertas totais obtidos nas últimas 24h</span>
+            </span>
+            </div>
+            <div class="number">8</div>
+          </div>
+
+          <div class="card alerta-card">
+            <div class="title"> <p>Média de alertas por dia</p>
+                          <span class="tooltip"> <i class='bxr  bx-info-circle'></i>
+              <span class="tooltip-text">Calculo de média de todos os alertas diários obtidos nos últimos 6
+                dias</span>
+            </span>
+            </div>
+            <div class="number">35</div>
+          </div>
+        </div>
+
+        <div class="card-alertas-totais">
+          <div class="title"> <p>Alertas não vistos</p>
+            <span class="tooltip"> <i class='bxr  bx-info-circle'></i>
+              <span class="tooltip-text">Lista com alertas recentes, agrupados por gravidade.</span>
+            </span>
+          </div>
+          <div class="alerts-list">
+            <div class="alerta-grave">
+              Alerta Grave  <span class="bolinha-grave">1</span> </div>
+            <div class="alerta-critico">
+              Em atenção 
+              <span class="bolinha-critico">5</span>
+            </div>
+          </div>
+          <button class="btn-historico" id="link-historico-alertas" onclick="window.location.href='alertasIndividuais.html'">Histórico de Alertas <i class='bxr  bx-arrow-right-stroke'    ></i> </button>
+        </div>
+      </div>
+
+
+      <div class="botao-sessao">
+        <div class="config-alerta">
+          <div class="config-left">
+            <span class="titulo">
+              <strong> Componentes à monitorar: </strong>
+            </span>
+            <select id="componentSelect">
+              <option value="CPU" selected>CPU</option>
+              <option value="Memória">Memória RAM</option>
+            </select>
+
+            <div class="config-alertas-status">
+              <span class="status-dot alerta-grave"></span> Alerta Grave
+              <span class="status-dot alerta-critico"></span> Em atenção
+              <span class="status-dot ok"></span> OK
+            </div>
+
+            <div class="metrica">
+              <div class="metric-lado">Tempo de Inatividade (Nas últimas 24h)</div>
+              <div class="number" id="inatividade">8h30min</div>
+            </div>
+            <div class="metrica">
+              <div class="metric-lado">Quantidade de alertas (Nas últimas 24h) </div>
+              <div class="number" id="qtdAlertas">7</div>
+            </div>
+            <div class="metrica">
+              <div class="metrica-lado">Tempo médio entre alertas (Nas últimas 24h)</div>
+              <div class="number" id="tempoMedio">30min</div>
+            </div>
+          </div>
+          <div class="metricas-valores">
+            <span class="grave"> <strong> 88% a 100%</strong></span>
+            <span class="critico"> <strong> 72% a 87% </strong></span>
+            <span class="ok"><strong> 0% a 71%</strong></span>
+
+
+
+          </div>
+          <div class="barra-vertical" aria-hidden="true"></div>
+        </div>
+
+        <div class="chart-area">
+          <div class="chart-header">
+            <div class="chart-controls">
+              <div id="chartTitle">Alertas emitidos nos últimos 7   dias</div>
+
+              <select id="tipoGraficoTopo" aria-label="Escolher tipo de gráfico">
+                <option value="alertas" selected>Gráfico de Alertas</option>
+                <option value="monitoramento">Monitoramento em Tempo Real</option>
+              </select>
+              <span class="tooltip"> <i class='bxr  bx-info-circle'></i>
+                <span class="tooltip-text">Escolha de tipo de gráficos que podem ser selecionados de acordo com os
+                  insigths desejados</span>
+              </span>
+            </div>
+          </div>
+
+          <canvas id="alertChart"></canvas>
+
+          <canvas id="monitorChart" class="canvas-hidden"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/menu-lateral.js"></script>
+  <script>
+
+
+    const alertData = {
+      CPU: {
+        grave: [8, 10, 18, 24, 2, 3, 5],
+        critico: [7, 12, 16, 20, 5, 10, 2]
+      },
+      Memória: {
+        grave: [5, 8, 10, 15, 3, 1, 0],
+        critico: [4, 10, 15, 18, 4, 7, 1]
+      }
+    };
+
+    const configAlertas = {
+      CPU: { inatividade: '8h30min', qtdAlertas: 7, tempoMedio: '30min' },
+      Memória: { inatividade: '8h30min', qtdAlertas: 1, tempoMedio: '25min' }
+    };
+
+    const labels = ['24/10', '25/10', '26/10', '27/10', '28/10', '29/10', '30/10'];
+    const ctx = document.getElementById('alertChart').getContext('2d');
+
+    let alertChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Grave', data: alertData.CPU.grave, backgroundColor: '#b30000', stack: 'Stack 0' },
+          { label: 'Crítico', data: alertData.CPU.critico, backgroundColor: '#daa520', stack: 'Stack 0' },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { stacked: true },
+          y: { stacked: true, beginAtZero: true }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+
+    const componentSelect = document.getElementById('componentSelect');
+    componentSelect.addEventListener('change', function () {
+      const comp = this.value;
+
+      alertChart.data.datasets[0].data = alertData[comp].grave;
+      alertChart.data.datasets[1].data = alertData[comp].critico;
+      alertChart.update();
+
+
+      document.getElementById('inatividade').textContent = configAlertas[comp].inatividade;
+      document.getElementById('qtdAlertas').textContent = configAlertas[comp].qtdAlertas;
+      document.getElementById('tempoMedio').textContent = configAlertas[comp].tempoMedio;
+
+
+      if (typeof monitorInstance !== 'undefined' && monitorVisible) {
+        monitorInstance.data.datasets[0].label = comp === 'CPU' ? 'Uso de CPU (%)' : 'Uso de Memória (%)';
+        monitorInstance.update();
+        currentMonitorComponent = comp;
+      }
+    });
+
+
+    const tipoGraficoTopo = document.getElementById('tipoGraficoTopo');
+    const monitorCanvas = document.getElementById('monitorChart');
+    const alertCanvas = document.getElementById('alertChart');
+    let monitorInstance = undefined;
+    let monitorInterval = null;
+    let monitorVisible = false;
+    let currentMonitorComponent = componentSelect.value || 'CPU';
+
+
+
+
+    function criarMonitorChart() {
+      const ctxMon = monitorCanvas.getContext('2d');
+
+      if (monitorInstance) {
+        monitorInstance.destroy();
+      }
+
+
+      const labelsMon = ['24/10 11:30', '25/10 11:35', '26/10 11:40', '27/10 11:45', '28/10 11:50', '29/10 11:55', '30/10 12:00'];
+      const dataMon = currentMonitorComponent === 'CPU'
+        ? [40, 55, 68, 75, 82, 78, 85]
+        : [30, 42, 57, 60, 64, 70, 72];
+
+
+      const backgroundColorPlugin = {
+        id: 'backgroundColorPlugin',
+        beforeDraw: (chart) => {
+          const { ctx, chartArea, scales } = chart;
+          if (!chartArea) return;
+
+          const { top, bottom, left, right } = chartArea;
+          const yScale = scales.y;
+
+
+          const getY = (valor) => yScale.getPixelForValue(valor);
+
+          ctx.save();
+
+
+          ctx.fillStyle = 'rgba(19, 155, 54, 0.7)';
+          ctx.fillRect(left, getY(73), right - left, bottom - getY(71));
+
+
+          ctx.fillStyle = 'rgba(243, 190, 58, 0.8)';
+          ctx.fillRect(left, getY(87), right - left, getY(73) - getY(87));
+
+
+          ctx.fillStyle = 'rgba(220, 23, 23, 0.7)';
+          ctx.fillRect(left, top, right - left, getY(87) - top);
+
+          ctx.restore();
+        }
+      };
+
+      monitorInstance = new Chart(ctxMon, {
+        type: 'line',
+        data: {
+          labels: labelsMon,
+          datasets: [{
+            label: currentMonitorComponent === 'CPU' ? 'Uso de CPU (%)' : 'Uso de Memória (%)',
+            data: dataMon,
+            borderColor: '#000',
+            backgroundColor: '#000',
+            fill: false,
+            tension: 0.25,
+            pointRadius: 4,
+            pointHoverRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              min: 0,
+              max: 100,
+              ticks: { stepSize: 10 },
+              title: { display: true, text: 'Uso (%)' }
+            },
+            x: { ticks: { autoSkip: false } }
+          },
+          plugins: {
+            legend: { display: true },
+            title: { display: true, text: 'Monitoramento em Tempo Real (Estático)' }
+          }
+        },
+        plugins: [backgroundColorPlugin]
+      });
+    }
+
+
+
+    function mostrarGrafico(tipo) {
+      if (tipo === 'alertas') {
+        monitorCanvas.classList.add('canvas-hidden');
+        alertCanvas.classList.remove('canvas-hidden');
+        if (monitorInterval) {
+          clearInterval(monitorInterval);
+          monitorInterval = null;
+        }
+        monitorVisible = false;
+        document.getElementById('chartTitle').textContent = 'Alertas emitidos nos últimos 7 dias';
+      } else if (tipo === 'monitoramento') {
+        alertCanvas.classList.add('canvas-hidden');
+        monitorCanvas.classList.remove('canvas-hidden');
+        currentMonitorComponent = componentSelect.value || 'CPU';
+        criarMonitorChart();
+        monitorVisible = true;
+        document.getElementById('chartTitle').textContent = 'Monitoramento em Tempo Real';
+      }
+    }
+
+    mostrarGrafico(tipoGraficoTopo.value);
+
+    tipoGraficoTopo.addEventListener('change', function () {
+      const tipo = this.value;
+      mostrarGrafico(tipo);
+    });
+
+
+    document.querySelectorAll('.info-btn').forEach(btn => {
+      const tooltip = btn.querySelector('.info-tooltip');
+      const text = btn.getAttribute('data-info') || '';
+
+
+      if (tooltip) tooltip.textContent = text;
+
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        document.querySelectorAll('.info-tooltip').forEach(t => {
+          if (t !== tooltip) t.classList.remove('show');
+        });
+        tooltip.classList.toggle('show');
+      });
+    });
+
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.info-tooltip').forEach(t => t.classList.remove('show'));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.info-tooltip').forEach(t => t.classList.remove('show'));
+      }
+    });
+
+
+    window.addEventListener('beforeunload', () => {
+      if (monitorInterval) clearInterval(monitorInterval);
+    });
+
+  </script>
+</body>
+
+</html>

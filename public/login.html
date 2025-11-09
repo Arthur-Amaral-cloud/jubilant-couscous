@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="left">
+        <button onclick="history.back()" class="btn-voltar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="13 16 9 12 13 8"></polyline>
+        </svg>
+        </button>
+        <img src="./assets/imgs/HealthGuard_Logomarca_BRANCA_fundo_transparente.png" alt="HealthGuard Logo">
+        <h1>Acessar conta!</h1>
+        <p>Muito bom ter você de volta, acesse sua conta e tenha acesso aos dados monitorados.</p>
+    </div>
+    <div class="right">
+        <div class="container">
+            <h2>Bem-vindo à HealthGuard!</h2>
+            <p>Ainda não possui uma conta? <a href="cadastro.html">Clique aqui</a></p>
+
+            <label for="email">E-mail</label>
+            <input id="email_input" type="text" placeholder="exemplo: healthguard@sptech.school">
+
+            <label for="senha">Senha</label>
+            <input id="senha_input" type="password">
+
+            <button onclick="entrar()">ENTRAR</button>
+
+            <div class="link">
+                <a href="./rec-senha.html">Esqueceu a senha?</a>
+            </div>
+            <br>
+            <div id="mensagem"></div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function entrar() {
+
+
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+
+            mensagem.innerHTML = `Por favor, preencha os campos corretamente!`;
+            return false;
+        }
+        else {
+            mensagem.innerHTML = ``
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                    sessionStorage.ID_PERMISSAO = json.idPermissoes;
+                    sessionStorage.FK_UNIDADE = json.fkUnidadeDeAtendimento;
+                    mensagem.innerHTML = `Carregando...`;
+                    console.log("Entrei no Fetch do Log")
+                    console.log("Id Usuário no Login:",sessionStorage.ID_USUARIO)
+                    console.log("Id Unidade no Login:",sessionStorage.FK_UNIDADE)
+                    fetch("/empresas/InserirLogAcesso", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            fkUsuario: sessionStorage.ID_USUARIO,
+                            fkUnidadeDeAtendimento: sessionStorage.FK_UNIDADE
+                        })
+                    })
+                        .then(function (resposta) {
+                            setTimeout(function () {
+                                mensagem.innerHTML = `Login realizado com sucesso!`;
+                            }, 2000);
+
+
+                            setTimeout(function () {
+                                window.location = "Dashboard/monitoramento.html";
+                            }, 3000);
+                        })
+                        .catch(function (resposta) {
+                            console.log(`#ERRO: ${resposta}`);
+                            mensagem.innerHTML = `Email ou senha inválido!`
+                        });
+                });
+
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+                
+                mensagem.innerHTML = `Carregando...`;
+                
+                setTimeout(function () {
+                mensagem.innerHTML = `Email ou senha inválido!`   
+                }, 2000);
+                
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+</script>
